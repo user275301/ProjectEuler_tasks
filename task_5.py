@@ -1,13 +1,21 @@
-maxdivider = 20
+import itertools
+flatten_iter = itertools.chain.from_iterable
+MAXDIVIDER = 10
 
-def task5(maxdivider):
-	num = 11
-	test = 1
-	while test != 0:
-		test = 0
-		for div in range(1,maxdivider):
-			test += num%div
-		num += 1
-	return num - 1
+def factor(num):
+    divisorsSet = {1}
+    for divisor in range(2, num):
+        if num%divisor == 0:
+            divisorsSet.add(divisor)
+    return divisorsSet
 
-print(task5(maxdivider))
+numberSets = list(map(factor, range(1, MAXDIVIDER + 1)))
+print(numberSets)
+resultSet = {1}
+resultSet = resultSet.union(*numberSets)
+result = 1
+for prod in resultSet:
+    result *= prod
+print(factor(2520))
+print(resultSet)
+print(result)
